@@ -1,0 +1,31 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+//anurag(22bet10069)
+using namespace std;
+
+int maxProduct(vector<int>& nums) {
+    int maxProd = nums[0], minProd = nums[0], result = nums[0];
+
+    for (size_t i = 1; i < nums.size(); i++) {
+        if (nums[i] < 0) 
+            swap(maxProd, minProd);
+
+        maxProd = max(nums[i], maxProd * nums[i]);
+        minProd = min(nums[i], minProd * nums[i]);
+
+        result = max(result, maxProd);
+    }
+    
+    return result;
+}
+
+int main() {
+    vector<int> nums1 = {2,3,-2,4};
+    vector<int> nums2 = {-2,0,-1};
+
+    cout << maxProduct(nums1) << endl; // Output: 6
+    cout << maxProduct(nums2) << endl; // Output: 0
+
+    return 0;
+}
