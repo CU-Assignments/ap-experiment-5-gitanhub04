@@ -1,0 +1,28 @@
+#include <vector>
+#include <iostream>
+using namespace std;
+//anurag(22bet10069)
+int maxProfit(vector<int>& prices) {
+    if (prices.empty()) return 0;
+
+    int n = prices.size();
+    int held = -prices[0], sold = 0, rest = 0;
+
+    for (int i = 1; i < n; i++) {
+        int new_held = max(held, rest - prices[i]);  // Buy or keep holding
+        int new_sold = held + prices[i];            // Sell stock
+        int new_rest = max(rest, sold);             // Cooldown or stay at rest
+
+        held = new_held;
+        sold = new_sold;
+        rest = new_rest;
+    }
+
+    return max(sold, rest);  // Max profit can be in sold or rest state
+}
+
+int main() {
+    vector<int> prices = {1, 2, 3, 0, 2};
+    cout << "Maximum Profit: " << maxProfit(prices) << endl;
+    return 0;
+}
